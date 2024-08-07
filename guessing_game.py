@@ -2,7 +2,7 @@ import random
 
 def guessing_game():
     while True:
-        number_to_guess = random.randint(1, 200)  # Random number between 1 and 200
+        number_to_guess = random.randint(1, 100)  # Random number between 1 and 200
         attempts = 0
         max_attempts = 10
 
