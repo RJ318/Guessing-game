@@ -11,9 +11,22 @@ def get_integer_input(prompt, min_value, max_value):
         except ValueError:
             print("Invalid input. Please enter a valid integer.")
 
+def display_welcome_message():
+    print("\n" + "="*40)
+    print("WELCOME TO THE GUESSING GAME!")
+    print("="*40)
+
+def display_goodbye_message():
+    print("\n" + "="*40)
+    print("Thank you for playing! Goodbye!")
+    print("="*40)
+
 def guessing_game():
+    score = 0
+    streak = 0
+
     while True:
-        # Select difficulty
+        display_welcome_message()
         print("Select Difficulty Level:")
         print("1. Easy (1-100, 10 attempts)")
         print("2. Medium (1-200, 7 attempts)")
@@ -35,28 +48,41 @@ def guessing_game():
 
         attempts = 0
 
-        print("Welcome to the Guessing Game!")
-        print(f"I have chosen a number between 1 and {max_range}. Can you guess it?")
-        print(f"You have a maximum of {max_attempts} attempts to guess the number.")
+        print(f"\nI've chosen a number between 1 and {max_range}.")
+        print(f"You have {max_attempts} attempts. Let's begin!")
 
         while attempts < max_attempts:
             guess = get_integer_input(f"Enter your guess (between 1 and {max_range}): ", 1, max_range)
             attempts += 1
 
             if guess < number_to_guess:
-                print(f"Too low! You have {max_attempts - attempts} attempts left. Try again.")
+                proximity_hint = abs(number_to_guess - guess)
+                if proximity_hint <= max_range * 0.1:
+                    print(f"Very close! Too low, {max_attempts - attempts} attempts left.")
+                else:
+                    print(f"Too low! {max_attempts - attempts} attempts left.")
             elif guess > number_to_guess:
-                print(f"Too high! You have {max_attempts - attempts} attempts left. Try again.")
+                proximity_hint = abs(guess - number_to_guess)
+                if proximity_hint <= max_range * 0.1:
+                    print(f"Very close! Too high, {max_attempts - attempts} attempts left.")
+                else:
+                    print(f"Too high! {max_attempts - attempts} attempts left.")
             else:
-                print(f"Congratulations! You guessed the number in {attempts} attempts.")
+                streak += 1
+                score += (max_attempts - attempts + 1) * 10  # Higher points for fewer attempts
+                print(f"\n🎉 Congratulations! You guessed the number in {attempts} attempts.")
+                print(f"Your current score is: {score}")
+                print(f"Winning streak: {streak} 🎯")
                 break
 
         if attempts == max_attempts and guess != number_to_guess:
-            print(f"Sorry, you've used all your attempts. The number was {number_to_guess}.")
+            streak = 0
+            print(f"\nSorry, you've used all your attempts. The number was {number_to_guess}.")
+            print(f"Your final score is: {score}")
 
         play_again = input("Would you like to play again? (yes/no): ").strip().lower()
         if play_again != 'yes':
-            print("Thank you for playing! Goodbye.")
+            display_goodbye_message()
             break
 
 if __name__ == "__main__":
