@@ -1,5 +1,6 @@
-Guessing Game 🎲
-A fun and interactive Python-based guessing game where players guess a randomly generated number within a specific range and difficulty level. This project showcases the use of Python for building interactive console applications with adaptive difficulty settings.
+Guessing Game:
+
+Designed to be a fun and interactive Python-based guessing game where players guess a randomly generated number within a specific range and difficulty level. This project showcases the use of Python for building interactive console applications with adaptive difficulty settings.
 
 Features:
 
